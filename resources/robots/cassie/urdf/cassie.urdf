@@ -1,0 +1,478 @@
+<?xml version="1.0" ?>
+<robot name="cassie" xmlns:xacro="http://ros.org/wiki/xacro">
+  <link name="base">
+    <inertial>
+      <origin rpy="0 0 0" xyz=".0507 0 .0284"/>
+      <mass value="0.1"/>
+      <inertia ixx=".00001" ixy="0." ixz=".015" iyy=".00001" iyz=".0" izz=".00001"/>
+    </inertial>
+  </link>
+  <link name="pelvis">
+    <!-- <inertial>
+      <origin rpy="0 0 0" xyz=".0507 0 .0284"/>
+      <mass value="10.33"/>
+      <inertia ixx=".0942" ixy=".000169" ixz=".015" iyy=".084" iyz=".000516" izz=".113"/>
+    </inertial> -->
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="../meshes/pelvis.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.35 0.35 0.35 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0. 0. 0."/>
+      <geometry>
+        <sphere radius="0.25"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz=".0507 0 .0284"/>
+      <mass value="10.33"/>
+      <inertia ixx=".0942" ixy=".000169" ixz=".015" iyy=".084" iyz=".000516" izz=".113"/>
+    </inertial>
+  </link>
+  <link name="left_pelvis_abduction">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="../meshes/abduction.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="light_grey">
+        <color rgba="0.75 0.75 0.75 1"/>
+      </material>
+    </visual>
+  </link>
+  <link name="left_pelvis_rotation">
+    <inertial>
+      <origin rpy="0 0 0" xyz=".0257 0.0001 .0179"/>
+      <mass value="1.82"/>
+      <inertia ixx=".00272" ixy="7.03e-07" ixz=".00000153" iyy=".00559" iyz="2.61e-06" izz=".004640"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="../meshes/yaw.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="light_grey">
+        <color rgba="0.75 0.75 0.75 1"/>
+      </material>
+    </visual>
+  </link>
+  <link name="left_hip">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-.0557 0 0"/>
+      <mass value="1.17"/>
+      <inertia ixx=".000842" ixy=".000000246" ixz="-.000000625" iyy=".006080" iyz="-.00000004" izz=".006440"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="../meshes/hip.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="light_grey">
+        <color rgba="0.75 0.75 0.75 1"/>
+      </material>
+    </visual>
+  </link>
+  <link name="left_thigh">
+    <inertial>
+      <origin rpy="0 0 0" xyz=".0598 .0001 -0.0358"/>
+      <mass value="5.52"/>
+      <inertia ixx=".018" ixy=".000284" ixz="-0.0117" iyy=".0563" iyz="-1.93e-05" izz=".0498"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="../meshes/thigh.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="light_grey">
+        <color rgba="0.75 0.75 0.75 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- <link name="left_knee">
+    <inertial>
+      <origin rpy="0 0 0" xyz=".023 .0321 -0.0022"/>
+      <mass value=".758"/>
+      <inertia ixx=".002160" ixy=".000956" ixz="2.84e-06" iyy=".00144" iyz="7.39e-07" izz=".00334"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="../meshes/knee-output.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.35 0.35 0.35 1"/>
+      </material>
+    </visual>
+  </link> -->
+  <link name="left_shin">
+    <inertial>
+      <origin rpy="0 0 0" xyz=".1834 .0012 0.0002"/>
+      <mass value=".577"/>
+      <inertia ixx=".000360" ixy=".000334" ixz="-1.94e-07" iyy=".0341" iyz="2.65e-07" izz=".0341"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="../meshes/shin-bone.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.35 0.35 0.35 1"/>
+      </material>
+    </visual>
+  </link>
+  <link name="left_tarsus">
+    <inertial>
+      <origin rpy="0 0 0" xyz=".1105 -.0306 -0.0013"/>
+      <mass value=".782"/>
+      <inertia ixx=".00113" ixy="-.00288" ixz="-6.33e-05" iyy=".0231" iyz="3.62e-05" izz=".0239"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="../meshes/tarsus.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.35 0.35 0.35 1"/>
+      </material>
+    </visual>
+  </link>
+  <link name="left_toe">
+    <inertial>
+      <origin rpy="0 0 0" xyz=".0047 .0275 -0.0001"/>
+      <mass value=".15"/>
+      <inertia ixx=".000287" ixy="-.0000986" ixz="-1.46e-06" iyy=".000171" iyz="1.72e-07" izz=".010449"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="../meshes/toe.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="light_grey">
+        <color rgba="0.75 0.75 0.75 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="1.57 0 0.85" xyz="0.03 0.03 0."/>
+      <geometry>
+        <cylinder length="0.125" radius="0.02"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="right_pelvis_abduction">
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0"/>
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="../meshes/abduction_mirror.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="light_grey">
+        <color rgba="0.75 0.75 0.75 1"/>
+      </material>
+    </visual>
+  </link>
+  <link name="right_pelvis_rotation">
+    <inertial>
+      <origin rpy="0 0 0" xyz=".0257 -0.0001 .0179"/>
+      <mass value="1.82"/>
+      <inertia ixx=".00272" ixy="-7.03e-07" ixz=".00000153" iyy=".00559" iyz="-2.61e-06" izz=".004640"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="../meshes/yaw_mirror.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="light_grey">
+        <color rgba="0.75 0.75 0.75 1"/>
+      </material>
+    </visual>
+  </link>
+  <link name="right_hip">
+    <inertial>
+      <origin rpy="0 0 0" xyz="-.0557 0 0"/>
+      <mass value="1.17"/>
+      <inertia ixx=".000842" ixy=".000000246" ixz="-.000000625" iyy=".006080" iyz="-.00000004" izz=".006440"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="../meshes/hip_mirror.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="light_grey">
+        <color rgba="0.75 0.75 0.75 1"/>
+      </material>
+    </visual>
+  </link>
+  <link name="right_thigh">
+    <inertial>
+      <origin rpy="0 0 0" xyz=".0598 .0001 0.0358"/>
+      <mass value="5.52"/>
+      <inertia ixx=".018" ixy=".000284" ixz="0.0117" iyy=".0563" iyz="1.93e-05" izz=".0498"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="../meshes/thigh_mirror.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="light_grey">
+        <color rgba="0.75 0.75 0.75 1"/>
+      </material>
+    </visual>
+  </link>
+  <!-- <link name="right_knee">
+    <inertial>
+      <origin rpy="0 0 0" xyz=".023 .0321 0.0022"/>
+      <mass value=".758"/>
+      <inertia ixx=".002160" ixy=".000956" ixz="-2.84e-06" iyy=".00144" iyz="-7.39e-07" izz=".00334"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="../meshes/knee-output_mirror.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.35 0.35 0.35 1"/>
+      </material>
+    </visual>
+  </link> -->
+  <link name="right_shin">
+    <inertial>
+      <origin rpy="0 0 0" xyz=".1834 .0012 -0.0002"/>
+      <mass value=".577"/>
+      <inertia ixx=".000360" ixy=".000334" ixz="1.94e-07" iyy=".0341" iyz="-2.65e-07" izz=".0341"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="../meshes/shin-bone_mirror.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.35 0.35 0.35 1"/>
+      </material>
+    </visual>
+  </link>
+  <link name="right_tarsus">
+    <inertial>
+      <origin rpy="0 0 0" xyz=".1105 -.0306 0.0013"/>
+      <mass value=".782"/>
+      <inertia ixx=".00113" ixy="-.00288" ixz="6.33e-05" iyy=".0231" iyz="-3.62e-05" izz=".0239"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="../meshes/tarsus_mirror.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.35 0.35 0.35 1"/>
+      </material>
+    </visual>
+  </link>
+  <link name="right_toe">
+    <inertial>
+      <origin rpy="0 0 0" xyz=".0047 .0275 0.0001"/>
+      <mass value=".15"/>
+      <inertia ixx=".000287" ixy="-.0000986" ixz="1.46e-06" iyy=".000171" iyz="-1.72e-07" izz=".010449"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="../meshes/toe_mirror.stl" scale="1 1 1"/>
+      </geometry>
+      <material name="light_grey">
+        <color rgba="0.75 0.75 0.75 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin rpy="1.57 0 0.85" xyz="0.03 0.03 0."/>
+      <geometry>
+        <cylinder length="0.125" radius="0.02"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="fixed_pelvis_to_base" type="fixed">
+    <origin rpy="0 0 0" xyz="0.03155 0 -0.07996"/>
+    <parent link="pelvis"/>
+    <child link="base"/>
+  </joint>
+  <joint name="fixed_left" type="fixed">
+    <origin rpy="0 1.57079632679 0" xyz="0.021 0.135 0"/>
+    <parent link="pelvis"/>
+    <child link="left_pelvis_abduction"/>
+  </joint>
+  <joint name="hip_abduction_left" type="revolute">
+    <origin rpy="0 -1.57079632679 0" xyz="0 0 -0.07"/>
+    <axis xyz="1 0 0"/>
+    <parent link="left_pelvis_abduction"/>
+    <child link="left_pelvis_rotation"/>
+    <limit effort="112" lower="-0.2618" upper="0.3927" velocity="20.1475"/>
+  </joint>
+  <joint name="hip_rotation_left" type="revolute">
+    <origin rpy="0 1.57079632679 -1.57079632679" xyz="0 0 -0.09"/>
+    <axis xyz="-1 0 0"/>
+    <parent link="left_pelvis_rotation"/>
+    <child link="left_hip"/>
+    <limit effort="112" lower="-0.3927" upper="0.3927" velocity="20.1475"/>
+  </joint>
+  <joint name="hip_flexion_left" type="revolute">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <parent link="left_hip"/>
+    <child link="left_thigh"/>
+    <limit effort="195" lower="-0.8727" upper="1.3963" velocity="20.5085"/>
+  </joint>
+  <joint name="thigh_joint_left" type="revolute">
+    <origin rpy="0 0 0" xyz="0.12 0 0.0045"/>
+    <axis xyz="0 0 1"/>
+    <parent link="left_thigh"/>
+    <child link="left_shin"/>
+    <limit effort="195" lower="-2.8623" upper="-0.6458" velocity="20.5085"/>
+  </joint>
+  <!-- <joint name="knee_to_shin_left" type="revolute">
+    <origin rpy="0 0 0" xyz="0.0607 0.0474 0"/>
+    <axis xyz="0 0 1"/>
+    <parent link="left_knee"/>
+    <child link="left_shin"/>
+    <limit effort="0" lower="-100" upper="100" velocity="100"/>
+  </joint> -->
+  <joint name="ankle_joint_left" type="revolute">
+    <origin rpy="0 0 0" xyz="0.4348 0.02 0"/>
+    <axis xyz="0 0 1"/>
+    <parent link="left_shin"/>
+    <child link="left_tarsus"/>
+    <limit effort="195" lower="0.6458" upper="2.8623" velocity="20.5085"/>
+  </joint>
+  <joint name="toe_joint_left" type="revolute">
+    <origin rpy="0 0 0" xyz="0.408 -0.04 0"/>
+    <axis xyz="0 0 1"/>
+    <parent link="left_tarsus"/>
+    <child link="left_toe"/>
+    <limit effort="45" lower="-2.4435" upper="-0.5236" velocity="20.5192"/>
+  </joint>
+  <joint name="fixed_right" type="fixed">
+    <origin rpy="0 1.57079632679 0" xyz="0.021 -0.135 0"/>
+    <parent link="pelvis"/>
+    <child link="right_pelvis_abduction"/>
+  </joint>
+  <joint name="hip_abduction_right" type="revolute">
+    <origin rpy="0 -1.57079632679 0" xyz="0 0 -0.07"/>
+    <axis xyz="1 0 0"/>
+    <parent link="right_pelvis_abduction"/>
+    <child link="right_pelvis_rotation"/>
+    <limit effort="112" lower="-0.3927" upper="0.2618" velocity="20.1475"/>
+  </joint>
+  <joint name="hip_rotation_right" type="revolute">
+    <origin rpy="0 1.57079632679 -1.57079632679" xyz="0 0 -0.09"/>
+    <axis xyz="-1 0 0"/>
+    <parent link="right_pelvis_rotation"/>
+    <child link="right_hip"/>
+    <limit effort="112" lower="-0.3927" upper="0.3927" velocity="20.1475"/>
+  </joint>
+  <joint name="hip_flexion_right" type="revolute">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <parent link="right_hip"/>
+    <child link="right_thigh"/>
+    <limit effort="195" lower="-0.8727" upper="1.3963" velocity="20.5085"/>
+  </joint>
+  <joint name="thigh_joint_right" type="revolute">
+    <origin rpy="0 0 0" xyz="0.12 0 -0.0045"/>
+    <axis xyz="0 0 1"/>
+    <parent link="right_thigh"/>
+    <child link="right_shin"/>
+    <limit effort="195" lower="-2.8623" upper="-0.6458" velocity="20.5085"/>
+  </joint>
+  <!-- <joint name="knee_to_shin_right" type="revolute">
+    <origin rpy="0 0 0" xyz="0.0607 0.0474 0"/>
+    <axis xyz="0 0 1"/>
+    <parent link="right_knee"/>
+    <child link="right_shin"/>
+    <limit effort="0" lower="-100" upper="100" velocity="100"/>
+  </joint> -->
+  <joint name="ankle_joint_right" type="revolute">
+    <origin rpy="0 0 0" xyz="0.4348 0.02 0"/>
+    <axis xyz="0 0 1"/>
+    <parent link="right_shin"/>
+    <child link="right_tarsus"/>
+    <limit effort="195" lower="0.6458" upper="2.8623" velocity="20.5085"/>
+  </joint>
+  <joint name="toe_joint_right" type="revolute">
+    <origin rpy="0 0 0" xyz="0.408 -0.04 0"/>
+    <axis xyz="0 0 1"/>
+    <parent link="right_tarsus"/>
+    <child link="right_toe"/>
+    <limit effort="45" lower="-2.4435" upper="-0.5236" velocity="20.5192"/>
+  </joint>
+  <!-- <transmission name="hip_abduction_trans_left" type="transmission_interface/SimpleTransmission">
+    <joint name="hip_abduction_left"/>
+    <actuator name="hip_abduction_motor_left"/>
+    <motorInertia>0.000061</motorInertia>
+    <mechanicalReduction>25</mechanicalReduction>
+  </transmission>
+  <transmission name="hip_rotation_trans_left" type="transmission_interface/SimpleTransmission">
+    <joint name="hip_rotation_left"/>
+    <actuator name="hip_rotation_motor_left"/>
+    <motorInertia>0.000061</motorInertia>
+    <mechanicalReduction>25</mechanicalReduction>
+  </transmission>
+  <transmission name="hip_flexion_trans_left" type="transmission_interface/SimpleTransmission">
+    <joint name="hip_flexion_left"/>
+    <actuator name="hip_flexion_motor_left"/>
+    <motorInertia>0.000365</motorInertia>
+    <mechanicalReduction>16</mechanicalReduction>
+  </transmission>
+  <transmission name="knee_joint_trans_left" type="transmission_interface/SimpleTransmission">
+    <joint name="knee_joint_left"/>
+    <actuator name="knee_joint_motor_left"/>
+    <motorInertia>0.000365</motorInertia>
+    <mechanicalReduction>16</mechanicalReduction>
+  </transmission>
+  <transmission name="toe_joint_trans_left" type="transmission_interface/SimpleTransmission">
+    <joint name="toe_joint_left"/>
+    <actuator name="toe_joint_motor_left"/>
+    <motorInertia>0.0000049</motorInertia>
+    <mechanicalReduction>50</mechanicalReduction>
+  </transmission>
+  <transmission name="hip_abduction_trans_right" type="transmission_interface/SimpleTransmission">
+    <joint name="hip_abduction_right"/>
+    <actuator name="hip_abduction_motor_right"/>
+    <motorInertia>0.000061</motorInertia>
+    <mechanicalReduction>25</mechanicalReduction>
+  </transmission>
+  <transmission name="hip_rotation_trans_right" type="transmission_interface/SimpleTransmission">
+    <joint name="hip_rotation_right"/>
+    <actuator name="hip_rotation_motor_right"/>
+    <motorInertia>0.000061</motorInertia>
+    <mechanicalReduction>25</mechanicalReduction>
+  </transmission>
+  <transmission name="hip_flexion_trans_right" type="transmission_interface/SimpleTransmission">
+    <joint name="hip_flexion_right"/>
+    <actuator name="hip_flexion_motor_right"/>
+    <motorInertia>0.000365</motorInertia>
+    <mechanicalReduction>16</mechanicalReduction>
+  </transmission>
+  <transmission name="knee_joint_trans_right" type="transmission_interface/SimpleTransmission">
+    <joint name="knee_joint_right"/>
+    <actuator name="knee_joint_motor_right"/>
+    <motorInertia>0.000365</motorInertia>
+    <mechanicalReduction>16</mechanicalReduction>
+  </transmission>
+  <transmission name="toe_joint_trans_right" type="transmission_interface/SimpleTransmission">
+    <joint name="toe_joint_right"/>
+    <actuator name="toe_joint_motor_right"/>
+    <motorInertia>0.0000049</motorInertia>
+    <mechanicalReduction>50</mechanicalReduction>
+  </transmission> -->
+</robot>
