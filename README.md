@@ -15,15 +15,15 @@ Paper: https://arxiv.org/abs/2109.11978
     - `pip3 install torch==1.10.0+cu113 torchvision==0.11.1+cu113 torchaudio==0.10.0+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html`
 3. Install Isaac Gym
    - Download and install Isaac Gym Preview 3 (Preview 2 will not work!) from https://developer.nvidia.com/isaac-gym
-   - `cd isaacgym_lib/python && pip install -e .`
-   - Try running an example `python examples/1080_balls_of_solitude.py`
+   - `cd isaacgym/python && pip install -e .`
+   - Try running an example `cd examples && python 1080_balls_of_solitude.py`
    - For troubleshooting check docs `isaacgym/docs/index.html`)
 4. Install rsl_rl (PPO implementation)
    - Clone https://github.com/leggedrobotics/rsl_rl
-   -  `cd rsl_rl && git checkout develop && pip install -e .` 
+   -  `cd rsl_rl && pip install -e .` 
 5. Install legged_gym
     - Clone this repository
-   - `cd legged_gym && git checkout develop && pip install -e .`
+   - `cd legged_gym && pip install -e .`
 
 ### CODE STRUCTURE ###
 1. Each environment is defined by an env file (`legged_robot.py`) and a config file (`legged_robot_config.py`). The config file contains two classes: one conatianing all the environment parameters (`LeggedRobotCfg`) and one for the training parameters (`LeggedRobotCfgPPo`).  
