@@ -70,6 +70,7 @@ class AnymalCRoughCfg( LeggedRobotCfg ):
 
     class asset( LeggedRobotCfg.asset ):
         file = "{LEGGED_GYM_ROOT_DIR}/resources/robots/anymal_c/urdf/anymal_c.urdf"
+        name = "anymal_c"
         foot_name = "FOOT"
         penalize_contacts_on = ["SHANK", "THIGH"]
         terminate_after_contacts_on = ["base"]
