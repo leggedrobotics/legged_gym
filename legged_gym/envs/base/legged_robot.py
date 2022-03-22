@@ -579,7 +579,7 @@ class LeggedRobot(BaseTask):
     def _create_heightfield(self):
         """ Adds a heightfield terrain to the simulation, sets parameters based on the cfg.
         """
-        hf_params = gymapi.HeightFieldProperties()
+        hf_params = gymapi.HeightFieldParams()
         hf_params.column_scale = self.terrain.horizontal_scale
         hf_params.row_scale = self.terrain.horizontal_scale
         hf_params.vertical_scale = self.terrain.vertical_scale
