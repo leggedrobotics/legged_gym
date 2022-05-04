@@ -71,10 +71,6 @@ class Terrain:
                                                                                             self.cfg.horizontal_scale,
                                                                                             self.cfg.vertical_scale,
                                                                                             self.cfg.slope_treshold)
-        if self.type=="heightfield":
-            self.horizontal_scale = self.cfg.horizontal_scale
-            self.vertical_scale = self.cfg.vertical_scale
-            self.border_size = self.cfg.border_size
     
     def randomized_terrain(self):
         for k in range(self.cfg.num_sub_terrains):
