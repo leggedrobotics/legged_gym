@@ -5,21 +5,25 @@ class SahrRoughCfg( LeggedRobotCfg ):
     class env( LeggedRobotCfg.env ):
         num_envs = 1024
         num_actions = 10
-        num_observations = 229
+        num_observations = 42
+    class terrain( LeggedRobotCfg.terrain ):
+        mesh_type = 'plane' 
+        measure_heights = False
     class init_state( LeggedRobotCfg.init_state ):
         pos = [0.0, 0.0, 0.42] # x,y,z [m]
+        rot = [0.0, 0.15, 0.0, 1.0] # x,y,z,w [quat]
         default_joint_angles = { # = target angles [rad] when action = 0.0
-            'left_hip_yaw': 0., #0.79*np.pi/180,   # [rad]
-            'left_hip_roll': 0., #6.06*np.pi/180,   # [rad]
-            'left_hip_pitch': 0., #-31.99*np.pi/180,  # [rad]
-            'left_knee': 0., #-42.18*np.pi/180,  # [rad]
-            'left_ankle_pitch': 0., #-21.53*np.pi/180,     # [rad]
+            'left_hip_yaw': 0.79*np.pi/180,   # [rad]
+            'left_hip_roll': 6.06*np.pi/180,   # [rad]
+            'left_hip_pitch': -31.99*np.pi/180,  # [rad]
+            'left_knee': -42.18*np.pi/180,  # [rad]
+            'left_ankle_pitch': -21.53*np.pi/180,     # [rad]
             
-            'right_hip_yaw': 0., #0.79*np.pi/180,   # [rad]
-            'right_hip_roll': 0., #6.06*np.pi/180,     # [rad]
-            'right_hip_pitch': 0., #-31.99*np.pi/180 ,  # [rad]
-            'right_knee': 0., #-42.18*np.pi/180,  # [rad]
-            'right_ankle_pitch': 0., #-21.53*np.pi/180,
+            'right_hip_yaw': 0.79*np.pi/180,   # [rad]
+            'right_hip_roll': 6.06*np.pi/180,     # [rad]
+            'right_hip_pitch': -31.99*np.pi/180 ,  # [rad]
+            'right_knee': -42.18*np.pi/180,  # [rad]
+            'right_ankle_pitch': -21.53*np.pi/180,
 
             'head_yaw': 0.0,
             'head_pitch': 0.0,
@@ -61,7 +65,7 @@ class SahrRoughCfg( LeggedRobotCfg ):
         terminate_after_contacts_on = ["trunk_1", "u_shoulder_1", "u_shoulder_2",
                                        "right_humerus_1", "left_humerus_1",
                                        "left_boxing_glove",
-                                       "right_knee_1", "left_knee_1"]
+                                       "right_knee_1", "left_knee_1", "head_1"]
         self_collisions = 1 # 1 to disable, 0 to enable...bitwise filter
   
     class rewards( LeggedRobotCfg.rewards ):
