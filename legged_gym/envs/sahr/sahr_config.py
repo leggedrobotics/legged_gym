@@ -9,17 +9,17 @@ class SahrRoughCfg( LeggedRobotCfg ):
     class init_state( LeggedRobotCfg.init_state ):
         pos = [0.0, 0.0, 0.42] # x,y,z [m]
         default_joint_angles = { # = target angles [rad] when action = 0.0
-            'left_hip_yaw': 0, #0.79*np.pi/180,   # [rad]
-            'left_hip_roll': 0, #6.06*np.pi/180,   # [rad]
-            'left_hip_pitch': 0, #-31.99*np.pi/180,  # [rad]
-            'left_knee': 0, #-42.18*np.pi/180,  # [rad]
-            'left_ankle_pitch': 0, #-21.53*np.pi/180,     # [rad]
+            'left_hip_yaw': 0., #0.79*np.pi/180,   # [rad]
+            'left_hip_roll': 0., #6.06*np.pi/180,   # [rad]
+            'left_hip_pitch': 0., #-31.99*np.pi/180,  # [rad]
+            'left_knee': 0., #-42.18*np.pi/180,  # [rad]
+            'left_ankle_pitch': 0., #-21.53*np.pi/180,     # [rad]
             
-            'right_hip_yaw': 0, #0.79*np.pi/180,   # [rad]
-            'right_hip_roll': 0, #6.06*np.pi/180,     # [rad]
-            'right_hip_pitch': 0, #-31.99*np.pi/180 ,  # [rad]
-            'right_knee': 0, #-42.18*np.pi/180,  # [rad]
-            'right_ankle_pitch': 0, #-21.53*np.pi/180,
+            'right_hip_yaw': 0., #0.79*np.pi/180,   # [rad]
+            'right_hip_roll': 0., #6.06*np.pi/180,     # [rad]
+            'right_hip_pitch': 0., #-31.99*np.pi/180 ,  # [rad]
+            'right_knee': 0., #-42.18*np.pi/180,  # [rad]
+            'right_ankle_pitch': 0., #-21.53*np.pi/180,
 
             'head_yaw': 0.0,
             'head_pitch': 0.0,

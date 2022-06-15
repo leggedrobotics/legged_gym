@@ -150,7 +150,7 @@
                 <body name="u_block_2" pos="0.0970334 0.0146146 -0.0089" quat="0 0.706488 -0.707725 0">
                     <inertial pos="0.00599173 -1.00908e-05 0.0136137" quat="0.000505477 0.678064 -0.000806897 0.735002" mass="0.0269256" diaginertia="1.67297e-05 1.61336e-05 6.9952e-06" />
                     
-                    <joint name="left_hip_yaw" type="hinge" pos="0 0 0" axis="0 0 -1" damping="1.23" frictionloss="5" armature="0.05" limited="true" range = "-0.5 1.7"/>
+                    <joint name="left_hip_yaw" type="hinge" pos="0 0 0" axis="0 0 -1" damping="1.23" stiffness="20." frictionloss="5" armature="0.05" limited="true" range = "-0.5 1.5"/>
                     <!-- <joint name="left_hip_yaw_backlash" group="100" type="hinge" pos="0 0 0" axis="0 0 -1" limited="true" range="-0.005 0.005"/> -->
                     
                     <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="u_block_2" />
@@ -159,7 +159,7 @@
                     <body name="mx106_block_2" pos="0 0 0.04" quat="0.5 -0.5 -0.5 0.5">
                         <inertial pos="5.15734e-05 -0.0158297 0.0220983" quat="1 0 0 0" mass="0.356029" diaginertia="0.000366976 0.000311782 0.000150052" />
                         
-                        <joint name="left_hip_roll" type="hinge" pos="0 0 0" axis="0 0 -1" damping="1.23" frictionloss="5" armature="0.05"/>
+                        <joint name="left_hip_roll" type="hinge" pos="0 0 0" axis="0 0 -1" damping="1.23" stiffness="20." frictionloss="5" armature="0.05" limited="true" range="-0.7 1.0"/>
                         <!-- <joint name="left_hip_roll_backlash" group="100" type="hinge" pos="0 0 0" axis="0 0 -1" limited="true" range="-0.005 0.005"/> -->
                         
                         <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="mx106_block_2" />
@@ -168,7 +168,7 @@
                         <body name="left_knee_1" pos="0 0 0" quat="0.707107 0 0.707107 0">
                             <inertial pos="-2.19976e-05 -0.108796 -0.000922573" quat="0.725498 0.688224 0 0" mass="0.229478" diaginertia="0.000327608 0.000293228 8.86064e-05" />
                             
-                            <joint name="left_hip_pitch" type="hinge" pos="0 0 0" axis="0 0 -1" damping="1.23" frictionloss="5" armature="0.05"/>
+                            <joint name="left_hip_pitch" type="hinge" pos="0 0 0" axis="0 0 -1" damping="1.23" stiffness="20." frictionloss="5" armature="0.05" limited="true" range="-2.1 1.0"/>
                             <!-- <joint name="left_hip_pitch_backlash" group="100" type="hinge" pos="0 0 0" axis="0 0 -1" limited="true" range="-0.005 0.005"/> -->
                             
                             <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="left_knee_1" />
@@ -178,7 +178,7 @@
                             <body name="tibia_2" pos="-2.19547e-05 -0.141 -0.029" quat="0 1 0 0">
                                 <inertial pos="0.00453397 0.0676196 -0.026272" quat="0.686939 0.726604 0.00837443 0.00951759" mass="0.0696482" diaginertia="0.000177805 0.000141467 5.69954e-05" />
                                 
-                                <joint name="left_knee" type="hinge" pos="0 0 0" axis="0 0 1" damping="1.23" frictionloss="5" armature="0.05" limited="true" range="-2.5 2.5"/>
+                                <joint name="left_knee" type="hinge" pos="0 0 0" axis="0 0 1" damping="1.23" stiffness="20." frictionloss="5" armature="0.05" limited="true" range="0.0 1.7"/>
                                 <!-- <joint name="left_knee_backlash" group="100" type="hinge" pos="0 0 0" axis="0 0 1" limited="true" range="-0.005 0.005"/> -->
 
                                 <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="tibia_2" />
@@ -188,7 +188,7 @@
                                 <body name="mx106_block_mir_2" pos="0 0.14 0" quat="0 1 0 0">
                                     <inertial pos="-0.0220763 0.0158297 0.0290516" quat="0.00915433 0.705801 -0.0327047 0.707595" mass="0.356029" diaginertia="0.000366976 0.000311782 0.000150052" />
                                     
-                                    <joint name="left_ankle_pitch" type="hinge" pos="0 0 0" axis="0 0 -1" damping="1.23" stiffness="20." frictionloss="5" armature="0.05" />
+                                    <joint name="left_ankle_pitch" type="hinge" pos="0 0 0" axis="0 0 -1" damping="1.23" stiffness="20." frictionloss="5" armature="0.05" limited="true" range="-0.8 1.0"/>
                                     <!-- <joint name="left_ankle_pitch_backlash" group="100" type="hinge" pos="0 0 0" axis="0 0 -1" limited="true" range="-0.005 0.005"/> -->
                                     
                                     <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="mx106_block_mir_2" />
@@ -226,7 +226,7 @@
                 <body name="u_block_1" pos="0.00428344 0.0146147 -0.0089" quat="0 0.707107 -0.707107 0">
                     <inertial pos="0.00599174 2.69365e-09 0.0136137" quat="0 0.678064 0 0.735003" mass="0.0269256" diaginertia="1.67297e-05 1.61336e-05 6.99521e-06" />
                     
-                    <joint name="right_hip_yaw" type="hinge" pos="0 0 0" axis="0 0 -1" damping="1.23" frictionloss="5" armature="0.05" limited="true" range = "-0.5 1.7"/>
+                    <joint name="right_hip_yaw" type="hinge" pos="0 0 0" axis="0 0 -1" damping="1.23" stiffness="20." frictionloss="5" armature="0.05" limited="true" range = "-0.5 1.5"/>
                     <!-- <joint name="right_hip_yaw_backlash" group="100" type="hinge" pos="0 0 0" axis="0 0 -1" limited="true" range="-0.005 0.005"/> -->
 
                     <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="u_block_1" />
@@ -235,7 +235,7 @@
                     <body name="mx106_block_mir_1" pos="0 0 0.04" quat="0.5 -0.5 0.5 -0.5">
                         <inertial pos="5.15746e-05 -0.0158297 -0.0220983" quat="0.999422 -0.0295988 0.00126868 0.0166526" mass="0.356029" diaginertia="0.000366976 0.000311782 0.000150052" />
                         
-                        <joint name="right_hip_roll" type="hinge" pos="0 0 0" axis="0 0 1" damping="1.23" frictionloss="5" armature="0.05"/>
+                        <joint name="right_hip_roll" type="hinge" pos="0 0 0" axis="0 0 1" damping="1.23" stiffness="20." frictionloss="5" armature="0.05" limited ='true' range="-0.7 1.0"/>
                         <!-- <joint name="right_hip_roll_backlash" group="100" type="hinge" pos="0 0 0" axis="0 0 1" limited="true" range="-0.005 0.005"/> -->
                         
                         <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="mx106_block_mir_1" />
@@ -244,7 +244,7 @@
                         <body name="right_knee_1" pos="-0.029 0 -2.2e-05" quat="0.707107 0 0.707107 0">
                             <inertial pos="6.56694e-10 -0.108796 0.0280774" quat="0.725498 0.688224 0 0" mass="0.229478" diaginertia="0.000327608 0.000293228 8.86064e-05" />
                             
-                            <joint name="right_hip_pitch" type="hinge" pos="0 0 0" axis="0 0 1" damping="1.23" frictionloss="5" armature="0.05"/>
+                            <joint name="right_hip_pitch" type="hinge" pos="0 0 0" axis="0 0 1" damping="1.23" stiffness="20." frictionloss="5" armature="0.05" limited="true" range="-2.1 1.0"/>
                             <!-- <joint name="right_hip_pitch_backlash" group="100" type="hinge" pos="0 0 0" axis="0 0 1" limited="true" range="-0.005 0.005"/> -->
                             
                             <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="right_knee_1" />
@@ -254,7 +254,7 @@
                             <body name="tibia_1" pos="0 -0.141 0.055" quat="0 0 0 1">
                                 <inertial pos="0.00453401 0.0676196 -0.028728" quat="0.726604 0.686939 0.00951817 0.00837388" mass="0.0696482" diaginertia="0.000177805 0.000141467 5.69954e-05" />
                                 
-                                <joint name="right_knee" type="hinge" pos="0 0 0" axis="0 0 1" damping="1.23" frictionloss="5" armature="0.05" limited="true" range="-2.5 2.5"/>
+                                <joint name="right_knee" type="hinge" pos="0 0 0" axis="0 0 1" damping="1.23" stiffness="20." frictionloss="5" armature="0.05" limited="true" range="0.0 1.7"/>
                                 <!-- <joint name="right_knee_backlash" group="100" type="hinge" pos="0 0 0" axis="0 0 1" limited="true" range="-0.005 0.005"/> -->
                                 
                                 <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="tibia_1" />
@@ -264,7 +264,7 @@
                                 <body name="mx106_block_1" pos="0 0.14 -0.026" quat="0 0 0 -1">
                                     <inertial pos="0.0220763 0.0158297 5.15964e-05" quat="-0.0327051 0.707596 0.00915386 0.705801" mass="0.356029" diaginertia="0.000366976 0.000311782 0.000150052" />
                                     
-                                    <joint name="right_ankle_pitch" type="hinge" pos="0 0 0" axis="0 0 1" damping="1.23" frictionloss="5" armature="0.05"/>
+                                    <joint name="right_ankle_pitch" type="hinge" pos="0 0 0" axis="0 0 1" damping="1.23" stiffness="20." frictionloss="5" armature="0.05" limited="true" range="-0.8 1.0"/>
                                     <!-- <joint name="right_ankle_pitch_backlash" group="100" type="hinge" pos="0 0 0" axis="0 0 1" limited="true" range="-0.005 0.005"/> -->
                                     
                                     <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="mx106_block_1" />
