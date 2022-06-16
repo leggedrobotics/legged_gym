@@ -9,6 +9,8 @@ class SahrRoughCfg( LeggedRobotCfg ):
     class terrain( LeggedRobotCfg.terrain ):
         mesh_type = 'plane' 
         measure_heights = False
+        static_friction = 10.0
+        dynamic_friction = 10.0
     class init_state( LeggedRobotCfg.init_state ):
         pos = [0.0, 0.0, 0.42] # x,y,z [m]
         rot = [0.0, 0.15, 0.0, 1.0] # x,y,z,w [quat]
@@ -16,13 +18,13 @@ class SahrRoughCfg( LeggedRobotCfg ):
             'left_hip_yaw': 0.79*np.pi/180,   # [rad]
             'left_hip_roll': 6.06*np.pi/180,   # [rad]
             'left_hip_pitch': -31.99*np.pi/180,  # [rad]
-            'left_knee': -42.18*np.pi/180,  # [rad]
+            'left_knee': 0.7362,  # [rad]
             'left_ankle_pitch': -21.53*np.pi/180,     # [rad]
             
             'right_hip_yaw': 0.79*np.pi/180,   # [rad]
             'right_hip_roll': 6.06*np.pi/180,     # [rad]
             'right_hip_pitch': -31.99*np.pi/180 ,  # [rad]
-            'right_knee': -42.18*np.pi/180,  # [rad]
+            'right_knee': 0.7362,  # [rad]
             'right_ankle_pitch': -21.53*np.pi/180,
 
             'head_yaw': 0.0,
@@ -61,19 +63,31 @@ class SahrRoughCfg( LeggedRobotCfg ):
         file = '{LEGGED_GYM_ROOT_DIR}/resources/robots/sahr/mjcf/sahr.xml'
         name = "sahr"
         foot_name = "foot"
-        penalize_contacts_on = ["thigh", "calf"]
+        penalize_contacts_on = ["trunk_1", "u_shoulder_1", "u_shoulder_2",
+                                "right_humerus_1", "left_humerus_1",
+                                "left_boxing_glove", "right_boxing_glove"
+                                "right_knee_1", "left_knee_1", "head_1"]
         terminate_after_contacts_on = ["trunk_1", "u_shoulder_1", "u_shoulder_2",
                                        "right_humerus_1", "left_humerus_1",
-                                       "left_boxing_glove",
+                                       "left_boxing_glove", "right_boxing_glove"
                                        "right_knee_1", "left_knee_1", "head_1"]
         self_collisions = 1 # 1 to disable, 0 to enable...bitwise filter
   
     class rewards( LeggedRobotCfg.rewards ):
-        soft_dof_pos_limit = 0.9
-        base_height_target = 0.25
         class scales( LeggedRobotCfg.rewards.scales ):
             torques = -0.0002
-            dof_pos_limits = -10.0
+            dof_pos_limits = 0.0
+            termination = -100.0
+            lin_vel_z = -0.2
+            ang_vel_xy = 0
+        
+        time_of_step = 0.25 #longer steps get positive reward
+        soft_dof_pos_limit = 0.1
+        base_height_target = 0.35        
+        soft_dof_vel_limit = 0.5
+        soft_torque_limit = 0.1
+        max_contact_force = 1000.0 # forces above this value are penalized
+        only_positive_rewards = False
 
 class SahrRoughCfgPPO( LeggedRobotCfgPPO ):
     class algorithm( LeggedRobotCfgPPO.algorithm ):

@@ -178,7 +178,7 @@
                             <body name="tibia_2" pos="-2.19547e-05 -0.141 -0.029" quat="0 1 0 0">
                                 <inertial pos="0.00453397 0.0676196 -0.026272" quat="0.686939 0.726604 0.00837443 0.00951759" mass="0.0696482" diaginertia="0.000177805 0.000141467 5.69954e-05" />
                                 
-                                <joint name="left_knee" type="hinge" pos="0 0 0" axis="0 0 1" damping="0.5" stiffness="20" frictionloss="5"  limited="true" range="0.5 0.9"/>
+                                <joint name="left_knee" type="hinge" pos="0 0 0" axis="0 0 1" damping="0.5" stiffness="20" frictionloss="5"  limited="true" range="0.0 1.7"/>
                                 <!-- <joint name="left_knee_backlash" group="100" type="hinge" pos="0 0 0" axis="0 0 1" limited="true" range="-0.005 0.005"/> -->
 
                                 <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="tibia_2" />
@@ -254,7 +254,7 @@
                             <body name="tibia_1" pos="0 -0.141 0.055" quat="0 0 0 1">
                                 <inertial pos="0.00453401 0.0676196 -0.028728" quat="0.726604 0.686939 0.00951817 0.00837388" mass="0.0696482" diaginertia="0.000177805 0.000141467 5.69954e-05" />
                                 
-                                <joint name="right_knee" type="hinge" pos="0 0 0" axis="0 0 1" damping="0.5" stiffness="20" frictionloss="5"  limited="true" range="0.5 0.8"/>
+                                <joint name="right_knee" type="hinge" pos="0 0 0" axis="0 0 1" damping="0.5" stiffness="20" frictionloss="5"  limited="true" range="0.0 1.7"/>
                                 <!-- <joint name="right_knee_backlash" group="100" type="hinge" pos="0 0 0" axis="0 0 1" limited="true" range="-0.005 0.005"/> -->
                                 
                                 <geom type="mesh" rgba="0.2 0.2 0.2 1" mesh="tibia_1" />

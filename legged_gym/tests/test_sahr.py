@@ -12,7 +12,7 @@ import torch
 def test_env(args):
     env_cfg, train_cfg = task_registry.get_cfgs(name=args.task)
     # override some parameters for testing
-    env_cfg.env.num_envs =  min(env_cfg.env.num_envs, 1)
+    env_cfg.env.num_envs = 1
 
     # prepare environment
     env, _ = task_registry.make_env(name=args.task, args=args, env_cfg=env_cfg)
