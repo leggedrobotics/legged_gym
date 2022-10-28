@@ -26,7 +26,7 @@ Paper: https://arxiv.org/abs/2109.11978
    - `cd legged_gym && pip install -e .`
 
 ### CODE STRUCTURE ###
-1. Each environment is defined by an env file (`legged_robot.py`) and a config file (`legged_robot_config.py`). The config file contains two classes: one conatianing all the environment parameters (`LeggedRobotCfg`) and one for the training parameters (`LeggedRobotCfgPPo`).  
+1. Each environment is defined by an env file (`legged_robot.py`) and a config file (`legged_robot_config.py`). The config file contains two classes: one containing  all the environment parameters (`LeggedRobotCfg`) and one for the training parameters (`LeggedRobotCfgPPo`).  
 2. Both env and config classes use inheritance.  
 3. Each non-zero reward scale specified in `cfg` will add a function with a corresponding name to the list of elements which will be summed to get the total reward.  
 4. Tasks must be registered using `task_registry.register(name, EnvClass, EnvConfig, TrainConfig)`. This is done in `envs/__init__.py`, but can also be done from outside of this repository.  
@@ -50,15 +50,15 @@ Paper: https://arxiv.org/abs/2109.11978
      - --max_iterations MAX_ITERATIONS:  Maximum number of training iterations.
 2. Play a trained policy:  
 ```python issacgym_anymal/scripts/play.py --task=anymal_c_flat```
-    - By default the loaded policy is the last model of the last run of the experiment folder.
+    - By default, the loaded policy is the last model of the last run of the experiment folder.
     - Other runs/model iteration can be selected by setting `load_run` and `checkpoint` in the train config.
 
 ### Adding a new environment ###
-The base environment `legged_robot` implements a rough terrain locomotion task. The corresponding cfg does not specify a robot asset (URDF/ MJCF) and no reward scales. 
+The base environment `legged_robot` implements a rough terrain locomotion task. The corresponding cfg does not specify a robot asset (URDF/ MJCF) and has no reward scales. 
 
 1. Add a new folder to `envs/` with `'<your_env>_config.py`, which inherit from an existing environment cfgs  
 2. If adding a new robot:
-    - Add the corresponding assets to `resourses/`.
+    - Add the corresponding assets to `resources/`.
     - In `cfg` set the asset path, define body names, default_joint_positions and PD gains. Specify the desired `train_cfg` and the name of the environment (python class).
     - In `train_cfg` set `experiment_name` and `run_name`
 3. (If needed) implement your environment in <your_env>.py, inherit from an existing environment, overwrite the desired functions and/or add your reward functions.
@@ -70,7 +70,7 @@ The base environment `legged_robot` implements a rough terrain locomotion task. 
 1. If you get the following error: `ImportError: libpython3.8m.so.1.0: cannot open shared object file: No such file or directory`, do: `sudo apt install libpython3.8`
 
 ### Known Issues ###
-1. The contact forces reported by `net_contact_force_tensor` are unreliable when simulating on GPU with a triangle mesh terrain. A workaround is to use force sensors, but the force are propagated through the sensors of consecutive bodies resulting in an undesireable behaviour. However, for a legged robot it is possible to add sensors to the feet/end effector only and get the expected results. When using the force sensors make sure to exclude gravity from trhe reported forces with `sensor_options.enable_forward_dynamics_forces`. Example:
+1. The contact forces reported by `net_contact_force_tensor` are unreliable when simulating on GPU with a triangle mesh terrain. A workaround is to use force sensors, but the force are propagated through the sensors of consecutive bodies resulting in an undesirable behaviour. However, for a legged robot it is possible to add sensors to the feet/end effector only and get the expected results. When using the force sensors make sure to exclude gravity from the reported forces with `sensor_options.enable_forward_dynamics_forces`. Example:
 ```
     sensor_pose = gymapi.Transform()
     for name in feet_names:
