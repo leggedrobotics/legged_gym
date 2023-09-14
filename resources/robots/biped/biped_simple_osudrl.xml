@@ -1,0 +1,339 @@
+<mujoco model="mini_biped">
+
+  <!-- from cassie's model -->
+  <!-- <compiler inertiafromgeom='auto' angle='degree' eulerseq='zyx' meshdir='cassie-stl-meshes'/> -->
+  <!-- <size nuser_actuator='1' nuser_sensor='1' nuser_geom='1'/> -->
+  <!-- <option timestep='0.0005' iterations='50' solver='PGS' gravity='0 0 -9.81'/> -->
+
+	<compiler angle="radian" meshdir="../meshes/" />
+	<size njmax="500" nconmax="100" />
+  	<option timestep='0.0005' iterations='50' solver='PGS' gravity='0 0 -9.81'/>
+
+
+	<default>
+	      <default class="force-torque">
+        <site type="box" size=".01 .01 .02" rgba="1 0 0 1" />
+      </default>
+	</default>
+
+	<asset>
+		<texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072" />
+		<texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3" markrgb="0.8 0.8 0.8" width="300" height="300" />
+		<material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2" />
+		<hfield name='terrain' nrow='500' ncol='500' size='10 10 1 1'/>
+
+	</asset>
+	<worldbody>
+		<light pos="0 0 3" dir="0 0 -1" directional="false" mode="targetbody" target="trunk" />
+		<!-- <geom name="floor" size="0 0 .125" type="plane" material="groundplane" conaffinity="15" condim="3" /> -->
+		<geom name='terrain' size="0 0 .125" conaffinity="15" condim="3"  pos="0 0 0" euler="0 0 0" material="groundplane" type='hfield' hfield='terrain'/>		
+
+		<body name="trunk" pos="0 0 0.5">
+			<camera name="back" pos="-3 0 1" xyaxes="0 -1 0 1 0 2" mode="trackcom" />
+			<camera name="side" pos="0 -3 1" xyaxes="1 0 0 0 1 2" mode="trackcom" />
+			<camera name="track" pos="0 -3 1" zaxis="0 -1 0.5" mode="track" />
+			<freejoint name="root" />
+			<site name="root" class="force-torque"/>
+			<geom size="0.0625 0.095 0.124" type="box" rgba="1 1 1 1" />
+			<geom size="0.0005 0.0005 0.0005" type="box" rgba="0.8 0 0 1" />
+			<body name="L_hip" pos="0 0.047 -0.1265">
+				<inertial pos="0.0651881 0.0105682 -0.05877" quat="-0.0733308 0.865238 0.13671 0.476756" mass="0.874" diaginertia="0.00147219 0.00132639 0.000517101" />
+				<joint name="L_hip_joint" pos="0 0 0" axis="0 0 1" limited="true" range="-0.261799 0.261799" damping="0.1" frictionloss="0.1" />
+				<geom size="5e-05 5e-05 5e-05" pos="0.015 0 -0.002" type="box" rgba="1 0.423529 0.0392157 1" />
+				<geom size="0.045 0.02" pos="0.079 0.015 -0.0705" quat="0.707107 0 0.707107 0" type="cylinder" />
+				<body name="L_hip2" pos="0.0465 0.015 -0.0705">
+					<inertial pos="-0.0565847 -0.0143919 0" quat="0.490371 0.490371 0.509447 0.509447" mass="0.745" diaginertia="0.000770832 0.000552938 0.000493077" />
+					<joint name="L_hip2_joint" pos="0 0 0" axis="1 0 0" limited="true" range="-0.523599 0.261799" damping="0.1" frictionloss="0.1" />
+					<geom size="5e-06 5e-06 5e-06" pos="-0.1 0 0" type="box" rgba="0.8 0 0 1" />
+					<geom size="0.045 0.02" pos="-0.06 -0.015 0" quat="0.707107 -0.707107 0 0" type="cylinder" />
+					<body name="L_thigh" pos="-0.06 0.018 0" quat="0.891007 0 0.45399 0">
+						<inertial pos="-4.85963e-05 0.0199702 -0.0592828" quat="0.98238 -0.186894 0.000253273 0.000716486" mass="1.942" diaginertia="0.0111784 0.0106783 0.00282909" />
+						<joint name="L_thigh_joint" pos="0 0 0" axis="0 1 0" limited="true" range="-3.14 3.14" />
+						<geom size="0.03 0.0175 0.09" pos="0 0.0175 -0.09" type="box" rgba="1 1 1 1" />
+						<geom size="0.045 0.02" pos="0 0.0625 0" quat="0.707107 -0.707107 0 0" type="cylinder" />
+						<geom size="0.045 0.02" pos="0 -0.0225 -0.097" quat="0.707107 -0.707107 0 0" type="cylinder" />
+						<body name="L_calf" pos="0 0 -0.22" quat="0.587785 0 -0.809017 0">
+							<inertial pos="0 0.020417 -0.1141" mass="0.303" diaginertia="0.001911 0.00191038 6.8352e-05" />
+							<joint name="L_calf_joint" pos="0 0 0" axis="0 1 0" limited="true" range="-3.14 3.14" />
+							<geom size="0.015 0.1" pos="0 0.02 -0.11" type="cylinder" rgba="1 0.423529 0.0392157 1" />
+							<body name="L_toe" pos="0 0 -0.22" quat="0.891007 0 0.45399 0">
+								<inertial pos="0.010569 0.017949 -0.017118" quat="0.5 0.5 0.5 0.5" mass="0.214" diaginertia="0.000290752 0.000249491 5.7298e-05" />
+								<joint name="L_toe_joint" pos="0 0 0" axis="0 1 0" limited="true" range="-1.4 1.4" />
+								<geom size="0.075 0.01 0.02" pos="0.01 0.0194 -0.02" type="box" rgba="0.8 0 0 1" />
+							</body>
+						</body>
+					</body>
+				</body>
+			</body>
+			<body name="R_hip" pos="0 -0.047 -0.1265">
+				<inertial pos="0.0651881 -0.011743 -0.05877" quat="0.054396 0.871604 -0.102394 0.476301" mass="0.874" diaginertia="0.00144737 0.00130361 0.000518878" />
+				<joint name="R_hip_joint" pos="0 0 0" axis="0 0 1" limited="true" range="-0.261799 0.261799" damping="0.1" frictionloss="0.1" />
+				<geom size="5e-05 5e-05 5e-05" pos="0.015 0 -0.002" type="box" rgba="1 0.423529 0.0392157 1" />
+				<geom size="0.045 0.02" pos="0.079 -0.015 -0.0705" quat="0.707107 0 0.707107 0" type="cylinder" />
+				<body name="R_hip2" pos="0.0465 -0.015 -0.0705">
+					<inertial pos="-0.0565847 0.0117826 0" quat="0.554078 0.554078 0.439315 0.439315" mass="0.745" diaginertia="0.000783544 0.000603818 0.000531245" />
+					<joint name="R_hip2_joint" pos="0 0 0" axis="1 0 0" limited="true" range="-0.261799 0.523599" damping="0.1" frictionloss="0.1" />
+					<geom size="5e-06 5e-06 5e-06" pos="-0.1 0 0" type="box" rgba="0.8 0 0 1" />
+					<geom size="0.045 0.02" pos="-0.06 0.015 0" quat="0.707107 -0.707107 0 0" type="cylinder" />
+					<body name="R_thigh" pos="-0.06 -0.018 0" quat="0.891007 0 0.45399 0">
+						<inertial pos="-4.85963e-05 -0.0199702 -0.0592828" quat="0.98238 0.186894 0.000253273 -0.000716486" mass="1.942" diaginertia="0.0111784 0.0106783 0.00282909" />
+						<joint name="R_thigh_joint" pos="0 0 0" axis="0 1 0" limited="true" range="-3.14 3.14" />
+						<geom size="0.03 0.0175 0.09" pos="0 -0.0175 -0.09" type="box" rgba="1 1 1 1" />
+						<geom size="0.045 0.02" pos="0 -0.0625 0" quat="0.707107 -0.707107 0 0" type="cylinder" />
+						<geom size="0.045 0.02" pos="0 0.0225 -0.097" quat="0.707107 -0.707107 0 0" type="cylinder" />
+						<body name="R_calf" pos="0 0 -0.22" quat="0.587785 0 -0.809017 0">
+							<inertial pos="0 -0.020417 -0.1141" mass="0.303" diaginertia="0.001911 0.00191038 6.8352e-05" />
+							<joint name="R_calf_joint" pos="0 0 0" axis="0 1 0" limited="true" range="-3.14 3.14" />
+							<geom size="0.015 0.1" pos="0 -0.02 -0.11" type="cylinder" rgba="1 0.423529 0.0392157 1" />
+							<body name="R_toe" pos="0 0 -0.22" quat="0.891007 0 0.45399 0">
+								<inertial pos="0.010569 -0.017949 -0.017118" quat="0.5 0.5 0.5 0.5" mass="0.214" diaginertia="0.000290752 0.000249491 5.7298e-05" />
+								<joint name="R_toe_joint" pos="0 0 0" axis="0 1 0" limited="true" range="-1.4 1.4" />
+								<geom size="0.075 0.01 0.02" pos="0.01 -0.0194 -0.02" type="box" rgba="0.8 0 0 1" />
+							</body>
+						</body>
+					</body>
+				</body>
+			</body>
+		</body>
+
+		<!-- <body name="v_trunk" pos="0 0 0.5">
+			<camera name="v_back" pos="-3 0 1" xyaxes="0 -1 0 1 0 2" mode="trackcom" />
+			<camera name="v_side" pos="0 -3 1" xyaxes="1 0 0 0 1 2" mode="trackcom" />
+			<camera name="v_track" pos="0 -3 1" zaxis="0 -1 0.5" mode="track" />
+			<freejoint name="v_root" />
+			<geom size="0.0625 0.095 0.124" type="box" rgba="0 0.5 0 0.5" contype="0" conaffinity="0" />
+			<geom size="0.0005 0.0005 0.0005" type="box" rgba="0 0.5 0 0.5" contype="0" conaffinity="0" />
+			<body name="v_L_hip" pos="0 0.047 -0.1265">
+				<inertial pos="0.0651881 0.0105682 -0.05877" quat="-0.0733308 0.865238 0.13671 0.476756" mass="0.874" diaginertia="0.00147219 0.00132639 0.000517101" />
+				<joint name="v_L_hip_joint" pos="0 0 0" axis="0 0 1" limited="true" range="-0.261799 0.261799" damping="0.1" frictionloss="0.1" />
+				<geom size="5e-05 5e-05 5e-05" pos="0.015 0 -0.002" type="box" rgba="0 0.5 0 0.5" contype="0" conaffinity="0" />
+				<geom size="0.045 0.02" pos="0.079 0.015 -0.0705" quat="0.707107 0 0.707107 0" type="cylinder" rgba="0 0.5 0 0.5" contype="0" conaffinity="0" />
+				<body name="v_L_hip2" pos="0.0465 0.015 -0.0705">
+					<inertial pos="-0.0565847 -0.0143919 0" quat="0.490371 0.490371 0.509447 0.509447" mass="0.745" diaginertia="0.000770832 0.000552938 0.000493077" />
+					<joint name="v_L_hip2_joint" pos="0 0 0" axis="1 0 0" limited="true" range="-0.523599 0.261799" damping="0.1" frictionloss="0.1" />
+					<geom size="5e-06 5e-06 5e-06" pos="-0.1 0 0" type="box" rgba="0 0.5 0 0.5" contype="0" conaffinity="0"/>
+					<geom size="0.045 0.02" pos="-0.06 -0.015 0" quat="0.707107 -0.707107 0 0" type="cylinder" rgba="0 0.5 0 0.5" contype="0" conaffinity="0"/>
+					<body name="v_L_thigh" pos="-0.06 0.018 0" quat="0.891007 0 0.45399 0">
+						<inertial pos="-4.85963e-05 0.0199702 -0.0592828" quat="0.98238 -0.186894 0.000253273 0.000716486" mass="1.942" diaginertia="0.0111784 0.0106783 0.00282909" />
+						<joint name="v_L_thigh_joint" pos="0 0 0" axis="0 1 0" limited="true" range="-3.14 3.14" />
+						<geom size="0.03 0.0175 0.09" pos="0 0.0175 -0.09" type="box" rgba="0 0.5 0 0.5" contype="0" conaffinity="0"/>
+						<geom size="0.045 0.02" pos="0 0.0625 0" quat="0.707107 -0.707107 0 0" type="cylinder" rgba="0 0.5 0 0.5" contype="0" conaffinity="0"/>
+						<geom size="0.045 0.02" pos="0 -0.0225 -0.097" quat="0.707107 -0.707107 0 0" type="cylinder" rgba="0 0.5 0 0.5" contype="0" conaffinity="0"/>
+						<body name="v_L_calf" pos="0 0 -0.22" quat="0.587785 0 -0.809017 0">
+							<inertial pos="0 0.020417 -0.1141" mass="0.303" diaginertia="0.001911 0.00191038 6.8352e-05" />
+							<joint name="v_L_calf_joint" pos="0 0 0" axis="0 1 0" limited="true" range="-3.14 3.14" />
+							<geom size="0.015 0.1" pos="0 0.02 -0.11" type="cylinder" rgba="0 0.5 0 0.5" contype="0" conaffinity="0"/>
+							<body name="v_L_toe" pos="0 0 -0.22" quat="0.891007 0 0.45399 0">
+								<inertial pos="0.010569 0.017949 -0.017118" quat="0.5 0.5 0.5 0.5" mass="0.214" diaginertia="0.000290752 0.000249491 5.7298e-05" />
+								<joint name="v_L_toe_joint" pos="0 0 0" axis="0 1 0" limited="true" range="-1.4 1.4" />
+								<geom size="0.075 0.01 0.02" pos="0.01 0.0194 -0.02" type="box" rgba="0 0.5 0 0.5" contype="0" conaffinity="0"/>
+							</body>
+						</body>
+					</body>
+				</body>
+			</body>
+			<body name="v_R_hip" pos="0 -0.047 -0.1265">
+				<inertial pos="0.0651881 -0.011743 -0.05877" quat="0.054396 0.871604 -0.102394 0.476301" mass="0.874" diaginertia="0.00144737 0.00130361 0.000518878" />
+				<joint name="v_R_hip_joint" pos="0 0 0" axis="0 0 1" limited="true" range="-0.261799 0.261799" damping="0.1" frictionloss="0.1" />
+				<geom size="5e-05 5e-05 5e-05" pos="0.015 0 -0.002" type="box" rgba="0 0.5 0 0.5" contype="0" conaffinity="0"/>
+				<geom size="0.045 0.02" pos="0.079 -0.015 -0.0705" quat="0.707107 0 0.707107 0" type="cylinder" rgba="0 0.5 0 0.5" contype="0" conaffinity="0"/>
+				<body name="v_R_hip2" pos="0.0465 -0.015 -0.0705">
+					<inertial pos="-0.0565847 0.0117826 0" quat="0.554078 0.554078 0.439315 0.439315" mass="0.745" diaginertia="0.000783544 0.000603818 0.000531245" />
+					<joint name="v_R_hip2_joint" pos="0 0 0" axis="1 0 0" limited="true" range="-0.261799 0.523599" damping="0.1" frictionloss="0.1" />
+					<geom size="5e-06 5e-06 5e-06" pos="-0.1 0 0" type="box" rgba="0 0.5 0 0.5" contype="0" conaffinity="0"/>
+					<geom size="0.045 0.02" pos="-0.06 0.015 0" quat="0.707107 -0.707107 0 0" type="cylinder" rgba="0 0.5 0 0.5" contype="0" conaffinity="0"/>
+					<body name="v_R_thigh" pos="-0.06 -0.018 0" quat="0.891007 0 0.45399 0">
+						<inertial pos="-4.85963e-05 -0.0199702 -0.0592828" quat="0.98238 0.186894 0.000253273 -0.000716486" mass="1.942" diaginertia="0.0111784 0.0106783 0.00282909" />
+						<joint name="v_R_thigh_joint" pos="0 0 0" axis="0 1 0" limited="true" range="-3.14 3.14" />
+						<geom size="0.03 0.0175 0.09" pos="0 -0.0175 -0.09" type="box" rgba="0 0.5 0 0.5" contype="0" conaffinity="0"/>
+						<geom size="0.045 0.02" pos="0 -0.0625 0" quat="0.707107 -0.707107 0 0" type="cylinder" rgba="0 0.5 0 0.5" contype="0" conaffinity="0"/>
+						<geom size="0.045 0.02" pos="0 0.0225 -0.097" quat="0.707107 -0.707107 0 0" type="cylinder" rgba="0 0.5 0 0.5" contype="0" conaffinity="0"/>
+						<body name="v_R_calf" pos="0 0 -0.22" quat="0.587785 0 -0.809017 0">
+							<inertial pos="0 -0.020417 -0.1141" mass="0.303" diaginertia="0.001911 0.00191038 6.8352e-05" />
+							<joint name="v_R_calf_joint" pos="0 0 0" axis="0 1 0" limited="true" range="-3.14 3.14" />
+							<geom size="0.015 0.1" pos="0 -0.02 -0.11" type="cylinder" rgba="0 0.5 0 0.5" contype="0" conaffinity="0"/>
+							<body name="v_R_toe" pos="0 0 -0.22" quat="0.891007 0 0.45399 0">
+								<inertial pos="0.010569 -0.017949 -0.017118" quat="0.5 0.5 0.5 0.5" mass="0.214" diaginertia="0.000290752 0.000249491 5.7298e-05" />
+								<joint name="v_R_toe_joint" pos="0 0 0" axis="0 1 0" limited="true" range="-1.4 1.4" />
+								<geom size="0.075 0.01 0.02" pos="0.01 -0.0194 -0.02" type="box" rgba="0 0.5 0 0.5" contype="0" conaffinity="0"/>
+							</body>
+						</body>
+					</body>
+				</body>
+			</body>
+		</body>  -->
+	</worldbody>
+	<!-- <actuator>
+		<motor name="L_hip_joint" joint="L_hip_joint" gear='25' ctrlrange='-4.5 4.5'/>
+		<motor name="L_hip2_joint" joint="L_hip2_joint" gear='25' ctrlrange='-4.5 4.5'/>
+		<motor name="L_thigh_joint" joint="L_thigh_joint" gear='16' ctrlrange='-12.2 12.2'/>
+		<motor name="L_calf_joint" joint="L_calf_joint" gear='16' ctrlrange='-12.2 12.2'/>
+		<motor name="L_toe_joint" joint="L_toe_joint" gear='50' ctrlrange='-0.9 0.9'/>
+		<motor name="R_hip_joint" joint="R_hip_joint" gear='25' ctrlrange='-4.5 4.5'/>
+		<motor name="R_hip2_joint" joint="R_hip2_joint" gear='25' ctrlrange='-4.5 4.5'/>
+		<motor name="R_thigh_joint" joint="R_thigh_joint" gear='16' ctrlrange='-12.2 12.2'/>
+		<motor name="R_calf_joint" joint="R_calf_joint" gear='16' ctrlrange='-12.2 12.2'/>
+		<motor name="R_toe_joint" joint="R_toe_joint" gear='50' ctrlrange='-0.9 0.9'/>
+	</actuator> -->
+	<actuator>
+		<motor name="L_hip_joint" joint="L_hip_joint" />
+		<motor name="L_hip2_joint" joint="L_hip2_joint" />
+		<motor name="L_thigh_joint" joint="L_thigh_joint" />
+		<motor name="L_calf_joint" joint="L_calf_joint" />
+		<motor name="L_toe_joint" joint="L_toe_joint" />
+		<motor name="R_hip_joint" joint="R_hip_joint" />
+		<motor name="R_hip2_joint" joint="R_hip2_joint" />
+		<motor name="R_thigh_joint" joint="R_thigh_joint" />
+		<motor name="R_calf_joint" joint="R_calf_joint" />
+		<motor name="R_toe_joint" joint="R_toe_joint" />
+	</actuator>	
+
+		<sensor>
+		<accelerometer name="torso_accel"    site="root"/>
+		<velocimeter name="torso_vel"        site="root"/>
+		<gyro name="torso_gyro"              site="root"/>
+	</sensor>
+
+
+	<visual>
+		<headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0" />
+		<rgba haze="0.15 0.25 0.35 1" />
+	</visual>
+
+
+	<!-- <equality>
+		<weld name="world_root" active="true" body1="trunk" relpose="0 0 -0.85 1 0 0 0"/>
+	</equality> -->
+	<!-- <contact>
+
+
+
+
+		<exclude body1="v_L_toe" body2="R_thigh" />
+		<exclude body1="v_R_toe" body2="R_thigh" />
+
+		<exclude body1="v_trunk" body2="trunk" />
+		<exclude body1="v_trunk" body2="L_hip" />
+		<exclude body1="v_trunk" body2="L_hip2" />
+		<exclude body1="v_trunk" body2="L_thigh" />
+		<exclude body1="v_trunk" body2="L_calf" />
+		<exclude body1="v_trunk" body2="L_toe" />
+		<exclude body1="v_trunk" body2="R_hip" />
+		<exclude body1="v_trunk" body2="R_hip2" />
+		<exclude body1="v_trunk" body2="R_thigh" />
+		<exclude body1="v_trunk" body2="R_calf" />
+		<exclude body1="v_trunk" body2="R_toe" />
+		<exclude body1="v_L_hip" body2="trunk" />
+		<exclude body1="v_L_hip" body2="L_hip" />
+		<exclude body1="v_L_hip" body2="L_hip2" />
+		<exclude body1="v_L_hip" body2="L_thigh" />
+		<exclude body1="v_L_hip" body2="L_calf" />
+		<exclude body1="v_L_hip" body2="L_toe" />
+		<exclude body1="v_L_hip" body2="R_hip" />
+		<exclude body1="v_L_hip" body2="R_hip2" />
+		<exclude body1="v_L_hip" body2="R_thigh" />
+		<exclude body1="v_L_hip" body2="R_calf" />
+		<exclude body1="v_L_hip" body2="R_toe" />
+		<exclude body1="v_L_hip2" body2="trunk" />
+		<exclude body1="v_L_hip2" body2="L_hip" />
+		<exclude body1="v_L_hip2" body2="L_hip2" />
+		<exclude body1="v_L_hip2" body2="L_thigh" />
+		<exclude body1="v_L_hip2" body2="L_calf" />
+		<exclude body1="v_L_hip2" body2="L_toe" />
+		<exclude body1="v_L_hip2" body2="R_hip" />
+		<exclude body1="v_L_hip2" body2="R_hip2" />
+		<exclude body1="v_L_hip2" body2="R_thigh" />
+		<exclude body1="v_L_hip2" body2="R_calf" />
+		<exclude body1="v_L_hip2" body2="R_toe" />
+		<exclude body1="v_L_thigh" body2="trunk" />
+		<exclude body1="v_L_thigh" body2="L_hip" />
+		<exclude body1="v_L_thigh" body2="L_hip2" />
+		<exclude body1="v_L_thigh" body2="L_thigh" />
+		<exclude body1="v_L_thigh" body2="L_calf" />
+		<exclude body1="v_L_thigh" body2="L_toe" />
+		<exclude body1="v_L_thigh" body2="R_hip" />
+		<exclude body1="v_L_thigh" body2="R_hip2" />
+		<exclude body1="v_L_thigh" body2="R_thigh" />
+		<exclude body1="v_L_thigh" body2="R_calf" />
+		<exclude body1="v_L_thigh" body2="R_toe" />
+		<exclude body1="v_L_calf" body2="trunk" />
+		<exclude body1="v_L_calf" body2="L_hip" />
+		<exclude body1="v_L_calf" body2="L_hip2" />
+		<exclude body1="v_L_calf" body2="L_thigh" />
+		<exclude body1="v_L_calf" body2="L_calf" />
+		<exclude body1="v_L_calf" body2="L_toe" />
+		<exclude body1="v_L_calf" body2="R_hip" />
+		<exclude body1="v_L_calf" body2="R_hip2" />
+		<exclude body1="v_L_calf" body2="R_thigh" />
+		<exclude body1="v_L_calf" body2="R_calf" />
+		<exclude body1="v_L_calf" body2="R_toe" />
+		<exclude body1="v_L_toe" body2="trunk" />
+		<exclude body1="v_L_toe" body2="L_hip" />
+		<exclude body1="v_L_toe" body2="L_hip2" />
+		<exclude body1="v_L_toe" body2="L_thigh" />
+		<exclude body1="v_L_toe" body2="L_calf" />
+		<exclude body1="v_L_toe" body2="L_toe" />
+		<exclude body1="v_L_toe" body2="R_hip" />
+		<exclude body1="v_L_toe" body2="R_hip2" />
+		<exclude body1="v_L_toe" body2="R_thigh" />
+		<exclude body1="v_L_toe" body2="R_calf" />
+		<exclude body1="v_L_toe" body2="R_toe" />
+		<exclude body1="v_R_hip" body2="trunk" />
+		<exclude body1="v_R_hip" body2="L_hip" />
+		<exclude body1="v_R_hip" body2="L_hip2" />
+		<exclude body1="v_R_hip" body2="L_thigh" />
+		<exclude body1="v_R_hip" body2="L_calf" />
+		<exclude body1="v_R_hip" body2="L_toe" />
+		<exclude body1="v_R_hip" body2="R_hip" />
+		<exclude body1="v_R_hip" body2="R_hip2" />
+		<exclude body1="v_R_hip" body2="R_thigh" />
+		<exclude body1="v_R_hip" body2="R_calf" />
+		<exclude body1="v_R_hip" body2="R_toe" />
+		<exclude body1="v_R_hip2" body2="trunk" />
+		<exclude body1="v_R_hip2" body2="L_hip" />
+		<exclude body1="v_R_hip2" body2="L_hip2" />
+		<exclude body1="v_R_hip2" body2="L_thigh" />
+		<exclude body1="v_R_hip2" body2="L_calf" />
+		<exclude body1="v_R_hip2" body2="L_toe" />
+		<exclude body1="v_R_hip2" body2="R_hip" />
+		<exclude body1="v_R_hip2" body2="R_hip2" />
+		<exclude body1="v_R_hip2" body2="R_thigh" />
+		<exclude body1="v_R_hip2" body2="R_calf" />
+		<exclude body1="v_R_hip2" body2="R_toe" />
+		<exclude body1="v_R_thigh" body2="trunk" />
+		<exclude body1="v_R_thigh" body2="L_hip" />
+		<exclude body1="v_R_thigh" body2="L_hip2" />
+		<exclude body1="v_R_thigh" body2="L_thigh" />
+		<exclude body1="v_R_thigh" body2="L_calf" />
+		<exclude body1="v_R_thigh" body2="L_toe" />
+		<exclude body1="v_R_thigh" body2="R_hip" />
+		<exclude body1="v_R_thigh" body2="R_hip2" />
+		<exclude body1="v_R_thigh" body2="R_thigh" />
+		<exclude body1="v_R_thigh" body2="R_calf" />
+		<exclude body1="v_R_thigh" body2="R_toe" />
+		<exclude body1="v_R_calf" body2="trunk" />
+		<exclude body1="v_R_calf" body2="L_hip" />
+		<exclude body1="v_R_calf" body2="L_hip2" />
+		<exclude body1="v_R_calf" body2="L_thigh" />
+		<exclude body1="v_R_calf" body2="L_calf" />
+		<exclude body1="v_R_calf" body2="L_toe" />
+		<exclude body1="v_R_calf" body2="R_hip" />
+		<exclude body1="v_R_calf" body2="R_hip2" />
+		<exclude body1="v_R_calf" body2="R_thigh" />
+		<exclude body1="v_R_calf" body2="R_calf" />
+		<exclude body1="v_R_calf" body2="R_toe" />
+		<exclude body1="v_R_toe" body2="trunk" />
+		<exclude body1="v_R_toe" body2="L_hip" />
+		<exclude body1="v_R_toe" body2="L_hip2" />
+		<exclude body1="v_R_toe" body2="L_thigh" />
+		<exclude body1="v_R_toe" body2="L_calf" />
+		<exclude body1="v_R_toe" body2="L_toe" />
+		<exclude body1="v_R_toe" body2="R_hip" />
+		<exclude body1="v_R_toe" body2="R_hip2" />
+		<exclude body1="v_R_toe" body2="R_thigh" />
+		<exclude body1="v_R_toe" body2="R_calf" />
+		<exclude body1="v_R_toe" body2="R_toe" />
+	</contact>  -->
+
+	
+</mujoco>
