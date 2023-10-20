@@ -20,7 +20,7 @@ Paper: https://arxiv.org/abs/2109.11978
    - For troubleshooting check docs `isaacgym/docs/index.html`)
 4. Install rsl_rl (PPO implementation)
    - Clone https://github.com/leggedrobotics/rsl_rl
-   -  `cd rsl_rl && pip install -e .` 
+   -  `cd rsl_rl && git checkout v1.0.2 && pip install -e .` 
 5. Install legged_gym
     - Clone this repository
    - `cd legged_gym && pip install -e .`
