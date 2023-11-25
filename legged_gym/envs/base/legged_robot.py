@@ -117,7 +117,7 @@ class LeggedRobot(BaseTask):
         self.base_quat[:] = self.root_states[:, 3:7]
         self.base_lin_vel[:] = quat_rotate_inverse(self.base_quat, self.root_states[:, 7:10])
         self.base_ang_vel[:] = quat_rotate_inverse(self.base_quat, self.root_states[:, 10:13])
-        self.projected_gravity[:] = quat_rotate_inverse(self.base_quat, self.gravity_vec)
+        self.projected_gravity[:] = quat_rotate(self.base_quat, self.gravity_vec)
 
         self._post_physics_step_callback()
 
