@@ -99,7 +99,7 @@ class BaseTask():
                 self.viewer, gymapi.KEY_V, "toggle_viewer_sync")
 
     def get_observations(self):
-        return self.obs_buf
+        return self.obs_buf, {}
     
     def get_privileged_observations(self):
         return self.privileged_obs_buf
