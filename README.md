@@ -37,9 +37,10 @@ Paper: https://arxiv.org/abs/2109.11978
     -  To run on CPU add following arguments: `--sim_device=cpu`, `--rl_device=cpu` (sim on CPU and rl on GPU is possible).
     -  To run headless (no rendering) add `--headless`.
     - **Important**: To improve performance, once the training starts press `v` to stop the rendering. You can then enable it later to check the progress.
-    - The trained policy is saved in `issacgym_anymal/logs/<experiment_name>/<date_time>_<run_name>/model_<iteration>.pt`. Where `<experiment_name>` and `<run_name>` are defined in the train config.
+    - The trained policy is saved in `<log_root>/logs/<experiment_name>/<date_time>_<run_name>/model_<iteration>.pt`. Where `<experiment_name>` and `<run_name>` are defined in the train config.
     -  The following command line arguments override the values set in the config files:
      - --task TASK: Task name.
+     - --log_root: Path where policy and logs are saved. `legged_gym` per default. 
      - --resume:   Resume training from a checkpoint
      - --experiment_name EXPERIMENT_NAME: Name of the experiment to run or load.
      - --run_name RUN_NAME:  Name of the run.
