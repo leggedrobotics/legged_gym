@@ -1,12 +1,24 @@
 # Isaac Gym Environments for Legged Robots #
 This repository provides the environment used to train ANYmal (and other robots) to walk on rough terrain using NVIDIA's Isaac Gym.
 It includes all components needed for sim-to-real transfer: actuator network, friction & mass randomization, noisy observations and random pushes during training.  
+
 **Maintainer**: Nikita Rudin  
 **Affiliation**: Robotic Systems Lab, ETH Zurich  
 **Contact**: rudinn@ethz.ch  
 
+---
+
+### :bell: Announcement (09.01.2024) ###
+
+With the shift from Isaac Gym to Isaac Sim at NVIDIA, we have migrated all the environments from this work to [Orbit](https://github.com/NVIDIA-Omniverse/Orbit). Following this migration, this repository will receive limited updates and support. We encourage all users to migrate to the new framework for their applications.
+
+Information about this work's locomotion-related tasks in Orbit is available [here](https://isaac-orbit.github.io/orbit/source/features/environments.html#locomotion).
+
+---
+
 ### Useful Links ###
-Project website: https://leggedrobotics.github.io/legged_gym/
+
+Project website: https://leggedrobotics.github.io/legged_gym/   
 Paper: https://arxiv.org/abs/2109.11978
 
 ### Installation ###
