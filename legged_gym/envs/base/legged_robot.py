@@ -937,10 +937,10 @@ class LeggedRobot(BaseTask):
         self.feet_air_time *= ~contact_filt
         return rew_airTime
     
-    #def _reward_stumble(self):
-    #    # Penalize feet hitting vertical surfaces
-    #    return torch.any(torch.norm(self.contact_forces[:, self.feet_indices, :2], dim=2) >\
-    #         5 *torch.abs(self.contact_forces[:, self.feet_indices, 2]), dim=1)
+    def _reward_stumble(self):
+        # Penalize feet hitting vertical surfaces
+        return torch.any(torch.norm(self.contact_forces[:, self.feet_indices, :2], dim=2) >\
+             5 *torch.abs(self.contact_forces[:, self.feet_indices, 2]), dim=1)
         
     def _reward_stand_still(self):
         # Penalize motion at zero commands
@@ -950,5 +950,22 @@ class LeggedRobot(BaseTask):
         # penalize high contact forces
         return torch.sum((torch.norm(self.contact_forces[:, self.feet_indices, :], dim=-1) -  self.cfg.rewards.max_contact_force).clip(min=0.), dim=1)
 
+    
     def _reward_box_topple(self):
         return (self.box_states[:,2] < 0.3).float() #returns all the heights
+    
+
+    def _reward_dist_from_box(self):
+        # Assuming self.box_states and self.root_states are PyTorch tensors
+        box_x_coordinates = self.box_states[:, 0]  
+        box_y_coordinates = self.box_states[:, 1]  
+        box_z_coordinates = self.box_states[:, 2]  
+
+        robot_x_coordinates = self.root_states[:, 0]
+        robot_y_coordinates = self.root_states[:, 1]
+        robot_z_coordinates = self.root_states[:, 2]
+
+        dist = (box_x_coordinates - robot_x_coordinates)**2 + (box_y_coordinates - robot_y_coordinates)**2
+
+        return torch.exp(-1.0 * dist)
+

@@ -60,9 +60,10 @@ class AlienGoCfg( LeggedRobotCfg ):
         max_contact_force = 300.
         only_positive_rewards = False
         class scales( LeggedRobotCfg.rewards.scales ):
-            termination = -2.5
+            termination = -1.5
             stand_still = -2.5
             box_topple = 2.
+            dist_from_box = 1.
 
     class noise( LeggedRobotCfg.noise ):
         add_noise = False
@@ -75,6 +76,7 @@ class AlienGoRoughCfgPPO( LeggedRobotCfgPPO ):
     class runner( LeggedRobotCfgPPO.runner ):
         run_name = ''
         experiment_name = 'aliengo'
+        max_iterations = 3000 # number of policy updates
         
     class algorithm( LeggedRobotCfgPPO.algorithm):
         entropy_coef = 0.01
