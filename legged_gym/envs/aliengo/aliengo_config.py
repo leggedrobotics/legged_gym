@@ -3,6 +3,7 @@ from legged_gym.envs.base.legged_robot_config import LeggedRobotCfg, LeggedRobot
 class AlienGoCfg( LeggedRobotCfg ):
     class env( LeggedRobotCfg.env ):
         num_observations = 48
+        #num_observations = 45
   
     class terrain( LeggedRobotCfg.terrain ):
         mesh_type = 'plane'
@@ -59,7 +60,12 @@ class AlienGoCfg( LeggedRobotCfg ):
         max_contact_force = 300.
         only_positive_rewards = False
         class scales( LeggedRobotCfg.rewards.scales ):
-            pass
+            termination = -2.5
+            stand_still = -2.5
+            box_topple = 2.
+
+    class noise( LeggedRobotCfg.noise ):
+        add_noise = False
     
     class domain_rand( LeggedRobotCfg.domain_rand ):
         friction_range = [0., 1.5] # on ground planes the friction combination mode is averaging, i.e total friction = (foot_friction + 1.)/2.

@@ -937,10 +937,10 @@ class LeggedRobot(BaseTask):
         self.feet_air_time *= ~contact_filt
         return rew_airTime
     
-    def _reward_stumble(self):
-        # Penalize feet hitting vertical surfaces
-        return torch.any(torch.norm(self.contact_forces[:, self.feet_indices, :2], dim=2) >\
-             5 *torch.abs(self.contact_forces[:, self.feet_indices, 2]), dim=1)
+    #def _reward_stumble(self):
+    #    # Penalize feet hitting vertical surfaces
+    #    return torch.any(torch.norm(self.contact_forces[:, self.feet_indices, :2], dim=2) >\
+    #         5 *torch.abs(self.contact_forces[:, self.feet_indices, 2]), dim=1)
         
     def _reward_stand_still(self):
         # Penalize motion at zero commands
@@ -950,5 +950,5 @@ class LeggedRobot(BaseTask):
         # penalize high contact forces
         return torch.sum((torch.norm(self.contact_forces[:, self.feet_indices, :], dim=-1) -  self.cfg.rewards.max_contact_force).clip(min=0.), dim=1)
 
-    #def _reward_box_topple(self):
-    #    return 0.0
+    def _reward_box_topple(self):
+        return (self.box_states[:,2] < 0.3).float() #returns all the heights
