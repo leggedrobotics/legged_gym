@@ -147,6 +147,7 @@ class LeggedRobot(BaseTask):
         self.reset_buf = torch.any(torch.norm(self.contact_forces[:, self.termination_contact_indices, :], dim=-1) > 1., dim=1)
         self.time_out_buf = self.episode_length_buf > self.max_episode_length # no terminal reward for time-outs
         self.reset_buf |= self.time_out_buf
+        self.reset_buf |= (self.root_states[:, 2] < 0.35)
 
     def reset_idx(self, env_ids):
         """ Reset some environments.
@@ -217,13 +218,16 @@ class LeggedRobot(BaseTask):
     def compute_observations(self):
         """ Computes observations
         """
+        # calculate relative position of block in robot's coordinate frame
+        # divide position by 5 (to scale the value)
         self.obs_buf = torch.cat((  self.base_lin_vel * self.obs_scales.lin_vel,
                                     self.base_ang_vel  * self.obs_scales.ang_vel,
                                     self.projected_gravity,
-                                    self.commands[:, :3] * self.commands_scale,
+                                    #self.commands[:, :3] * self.commands_scale,
                                     (self.dof_pos - self.default_dof_pos) * self.obs_scales.dof_pos,
                                     self.dof_vel * self.obs_scales.dof_vel,
-                                    self.actions
+                                    self.actions,
+                                    # add relative position of block 
                                     ),dim=-1)
         # add perceptive inputs if not blind
         if self.cfg.terrain.measure_heights:
@@ -259,6 +263,12 @@ class LeggedRobot(BaseTask):
         self.gym.viewer_camera_look_at(self.viewer, None, cam_pos, cam_target)
 
     #------------- Callbacks --------------
+    # 5/15/24
+    def get_relative_translation(self, transform1, transform2):
+        q,t = tf_inverse(transform1[0], transform2[1])
+        return tf_apply(q,t,transform2[1])
+
+
     def _process_rigid_shape_props(self, props, env_id):
         """ Callback allowing to store/change/randomize the rigid shape properties of each environment.
             Called During environment creation.
@@ -488,12 +498,16 @@ class LeggedRobot(BaseTask):
         noise_vec[:3] = noise_scales.lin_vel * noise_level * self.obs_scales.lin_vel
         noise_vec[3:6] = noise_scales.ang_vel * noise_level * self.obs_scales.ang_vel
         noise_vec[6:9] = noise_scales.gravity * noise_level
-        noise_vec[9:12] = 0. # commands
-        noise_vec[12:24] = noise_scales.dof_pos * noise_level * self.obs_scales.dof_pos
-        noise_vec[24:36] = noise_scales.dof_vel * noise_level * self.obs_scales.dof_vel
-        noise_vec[36:48] = 0. # previous actions
+        noise_vec[9:21] = noise_scales.dof_pos * noise_level * self.obs_scales.dof_pos
+        noise_vec[21:33] = noise_scales.dof_vel * noise_level * self.obs_scales.dof_vel
+        noise_vec[33:45] = 0.
+        #noise_vec[9:12] = 0. # commands
+        #noise_vec[12:24] = noise_scales.dof_pos * noise_level * self.obs_scales.dof_pos
+        #noise_vec[24:36] = noise_scales.dof_vel * noise_level * self.obs_scales.dof_vel
+        #noise_vec[36:48] = 0. # previous actions
         if self.cfg.terrain.measure_heights:
-            noise_vec[48:235] = noise_scales.height_measurements* noise_level * self.obs_scales.height_measurements
+            #noise_vec[48:235] = noise_scales.height_measurements* noise_level * self.obs_scales.height_measurements
+            noise_vec[45:235] = noise_scales.height_measurements* noise_level * self.obs_scales.height_measurements
         return noise_vec
 
     #----------------------------------------
@@ -717,7 +731,7 @@ class LeggedRobot(BaseTask):
                 
             rigid_shape_props = self._process_rigid_shape_props(rigid_shape_props_asset, i)
             self.gym.set_asset_rigid_shape_properties(robot_asset, rigid_shape_props)
-            actor_handle = self.gym.create_actor(env_handle, robot_asset, start_pose, self.cfg.asset.name, i, self.cfg.asset.self_collisions, 0)
+            actor_handle = self.gym.create_actor(env_handle, robot_asset, start_pose, self.cfg.asset.name, i*2, self.cfg.asset.self_collisions, 0)
             dof_props = self._process_dof_props(dof_props_asset, i)
             self.gym.set_actor_dof_properties(env_handle, actor_handle, dof_props)
             body_props = self.gym.get_actor_rigid_body_properties(env_handle, actor_handle)
@@ -726,7 +740,7 @@ class LeggedRobot(BaseTask):
             self.envs.append(env_handle)
             self.actor_handles.append(actor_handle)
             
-            box_handle = self.gym.create_actor(env_handle, box_asset, box_pose, "box", i, 0)
+            box_handle = self.gym.create_actor(env_handle, box_asset, box_pose, "box", i*2+1, 0)
             self.box_handles.append(box_handle)
             
 
@@ -957,6 +971,7 @@ class LeggedRobot(BaseTask):
 
     def _reward_dist_from_box(self):
         # Assuming self.box_states and self.root_states are PyTorch tensors
+        '''
         box_x_coordinates = self.box_states[:, 0]  
         box_y_coordinates = self.box_states[:, 1]  
         box_z_coordinates = self.box_states[:, 2]  
@@ -965,7 +980,18 @@ class LeggedRobot(BaseTask):
         robot_y_coordinates = self.root_states[:, 1]
         robot_z_coordinates = self.root_states[:, 2]
 
+        
+        print("box_x: ")
+        print(box_x_coordinates)
+        print("box_y: ")
+        print(box_y_coordinates)
+        
+
         dist = (box_x_coordinates - robot_x_coordinates)**2 + (box_y_coordinates - robot_y_coordinates)**2
+        '''
+
+        pos_box_wrt_robot = self.box_states[:,:2]-self.root_states[:,:2]
+        dist = torch.norm(pos_box_wrt_robot)
 
         return torch.exp(-1.0 * dist)
 

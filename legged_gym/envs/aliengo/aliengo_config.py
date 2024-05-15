@@ -2,12 +2,13 @@ from legged_gym.envs.base.legged_robot_config import LeggedRobotCfg, LeggedRobot
 
 class AlienGoCfg( LeggedRobotCfg ):
     class env( LeggedRobotCfg.env ):
-        num_observations = 48
-        #num_observations = 45
+        #num_observations = 48
+        num_observations = 45
+        episode_length_s = 20 
   
     class terrain( LeggedRobotCfg.terrain ):
         mesh_type = 'plane'
-        measure_heights = False
+        measure_heights = False # if you change this you have to change _get_noise_scale_vector
   
     class asset( LeggedRobotCfg.asset ):
         name = "aliengo"
@@ -18,8 +19,9 @@ class AlienGoCfg( LeggedRobotCfg ):
         self_collisions = 1 # 1 to disable, 0 to enable...bitwise filter
         # fix_base_link = True
 
+    
     class commands( LeggedRobotCfg.commands ):
-        heading_command = False
+        #heading_command = False
         resampling_time = 4.
         class ranges( LeggedRobotCfg.commands.ranges ):
             ang_vel_yaw = [-1.5, 1.5]
@@ -27,8 +29,8 @@ class AlienGoCfg( LeggedRobotCfg ):
     class init_state( LeggedRobotCfg.init_state ):
         pos = [0.0, 0.0, 0.50] # x,y,z [m]
         default_joint_angles = {
-             'FL_hip_joint': 0.0,   # [rad]
-             'RL_hip_joint': 0.0,   # [rad]
+             'FL_hip_joint': 0.0,   # [rad]v
+             'RL_hip_joint': 0.0,   # [rad]v
              'FR_hip_joint': -0.0 ,  # [rad]
              'RR_hip_joint': -0.0,   # [rad]
 
@@ -58,12 +60,26 @@ class AlienGoCfg( LeggedRobotCfg ):
     class rewards( LeggedRobotCfg.rewards ):
         base_height_target = 1.
         max_contact_force = 300.
-        only_positive_rewards = False
+        only_positive_rewards = True
         class scales( LeggedRobotCfg.rewards.scales ):
-            termination = -1.5
-            stand_still = -2.5
-            box_topple = 2.
-            dist_from_box = 1.
+            box_topple = 0.
+            dist_from_box = 2.
+
+            termination = -0.0
+            tracking_lin_vel = 0.0
+            tracking_ang_vel = 0.0
+            lin_vel_z = -2.0
+            ang_vel_xy = -0.05
+            orientation = -0.
+            torques = -0.00001
+            dof_vel = -0.
+            dof_acc = -2.5e-7
+            base_height = -0. 
+            feet_air_time = 0.0
+            collision = -0.0
+            feet_stumble = -0.0 
+            action_rate = -0.01
+            stand_still = -0.0
 
     class noise( LeggedRobotCfg.noise ):
         add_noise = False
