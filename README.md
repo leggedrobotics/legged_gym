@@ -10,9 +10,9 @@ It includes all components needed for sim-to-real transfer: actuator network, fr
 
 ### :bell: Announcement (09.01.2024) ###
 
-With the shift from Isaac Gym to Isaac Sim at NVIDIA, we have migrated all the environments from this work to [Orbit](https://github.com/NVIDIA-Omniverse/Orbit). Following this migration, this repository will receive limited updates and support. We encourage all users to migrate to the new framework for their applications.
+With the shift from Isaac Gym to Isaac Sim at NVIDIA, we have migrated all the environments from this work to [Isaac Lab](https://github.com/isaac-sim/IsaacLab). Following this migration, this repository will receive limited updates and support. We encourage all users to migrate to the new framework for their applications.
 
-Information about this work's locomotion-related tasks in Orbit is available [here](https://isaac-orbit.github.io/orbit/source/features/environments.html#locomotion).
+Information about this work's locomotion-related tasks in Orbit is available [here](https://isaac-sim.github.io/IsaacLab/source/features/environments.html#locomotion).
 
 ---
 
