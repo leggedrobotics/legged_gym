@@ -1,5 +1,5 @@
-# Isaac Gym Environments for Legged Robots #
-This repository provides the environment used to train ANYmal (and other robots) to walk on rough terrain using NVIDIA's Isaac Gym.
+# Isaac Gym Environments for Legged Robots with Teacher-Student Policy Training #
+This repository provides the environment used to train serveral robots to walk on rough terrain using NVIDIA's Isaac Gym.
 It includes all components needed for sim-to-real transfer: actuator network, friction & mass randomization, noisy observations and random pushes during training.  
 
 **Maintainer**: Nikita Rudin  
@@ -15,6 +15,15 @@ With the shift from Isaac Gym to Isaac Sim at NVIDIA, we have migrated all the e
 Information about this work's locomotion-related tasks in Isaac Lab is available [here](https://isaac-sim.github.io/IsaacLab/source/features/environments.html#locomotion).
 
 ---
+### :Note: ###
+
+There are something different with the main repo:
+
+Referring to the paper "Learning quadrupedal locomotion over challenging terrain", I added the Teacher-Student Policy Learning mechanism to the main repo.
+
+This paper: https://www.science.org/doi/10.1126/scirobotics.abc5986
+
+---
 
 ### Useful Links ###
 
@@ -22,11 +31,11 @@ Project website: https://leggedrobotics.github.io/legged_gym/
 Paper: https://arxiv.org/abs/2109.11978
 
 ### Installation ###
-1. Create a new python virtual env with python 3.6, 3.7 or 3.8 (3.8 recommended)
+1. Create a new python virtual env with python 3.8
 2. Install pytorch 1.10 with cuda-11.3:
-    - `pip3 install torch==1.10.0+cu113 torchvision==0.11.1+cu113 torchaudio==0.10.0+cu113 -f https://download.pytorch.org/whl/cu113/torch_stable.html`
-3. Install Isaac Gym
-   - Download and install Isaac Gym Preview 3 (Preview 2 will not work!) from https://developer.nvidia.com/isaac-gym
+    - `pip3 install torch torchvision`
+3. Install Isaac Gym (It is recommended to use Ubuntu directly instead of WSL or virtual machine)
+   - Download and install Isaac Gym Preview 4 from https://developer.nvidia.com/isaac-gym
    - `cd isaacgym/python && pip install -e .`
    - Try running an example `cd examples && python 1080_balls_of_solitude.py`
    - For troubleshooting check docs `isaacgym/docs/index.html`)
