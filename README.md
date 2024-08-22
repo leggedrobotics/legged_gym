@@ -15,7 +15,7 @@ With the shift from Isaac Gym to Isaac Sim at NVIDIA, we have migrated all the e
 Information about this work's locomotion-related tasks in Isaac Lab is available [here](https://isaac-sim.github.io/IsaacLab/source/features/environments.html#locomotion).
 
 ---
-### :Note: ###
+### Note ###
 
 There are something different with the main repo:
 
