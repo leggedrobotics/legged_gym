@@ -12,7 +12,7 @@ It includes all components needed for sim-to-real transfer: actuator network, fr
 
 With the shift from Isaac Gym to Isaac Sim at NVIDIA, we have migrated all the environments from this work to [Isaac Lab](https://github.com/isaac-sim/IsaacLab). Following this migration, this repository will receive limited updates and support. We encourage all users to migrate to the new framework for their applications.
 
-Information about this work's locomotion-related tasks in Isaac Lab is available [here](https://isaac-sim.github.io/IsaacLab/source/features/environments.html#locomotion).
+Information about this work's locomotion-related tasks in Isaac Lab is available [here](https://isaac-sim.github.io/IsaacLab/main/source/overview/environments.html#locomotion).
 
 ---
 
